@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>You first Spring application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form action="/api/sensore/add" method="POST">
+    <div>
+        <label for="pos">pos</label>
+        <input name="pos" id="pos" value="">
+        <label for="dim">dim</label>
+        <input name="dim" id="dim" value="">
+        <label for="tipologia">tipologia</label>
+        <input name="tipologia" id="tipologia" value="">
+        <label for="postoletto">postoletto</label>
+        <input name="postoletto" id="postoletto" value="">
+    </div>
+
+    <div>
+        <button>Add neonato button </button>
+    </div>
+</form>
+
+<form action="/list" method="GET">
+    <button>List patologia</button>
+</form>
+</body>
+</html>
