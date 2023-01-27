@@ -13,15 +13,18 @@ import java.util.Objects;
 public class ObservationecgId implements Serializable {
     private static final long serialVersionUID = -1436930843243091930L;
 
-    @Column(name = "data_rilevazione", nullable = false)
-    private Instant dataRilevazione;
-    @Column(name = "idsensore", nullable = false)
-    private Integer idsensore;
+    @Column(name = "measure", nullable = false)
+    private Integer measure;
+    @Column(name = "id_observation_ecg", nullable = false)
+    private Integer idObservationEcg;
+    @Column(name = "neonato_fk")
+    private Integer idNeonato;
 
     public ObservationecgId(){}
 
-    public ObservationecgId(Instant dataRilevazione, Integer idsensore) {
-        this.dataRilevazione = dataRilevazione;
-        this.idsensore = idsensore;
+    public ObservationecgId(Integer idNeonato, Integer idObservationecg,  Integer idMeasure) {
+        this.measure = idMeasure;
+        this.idObservationEcg = idObservationecg;
+        this.idNeonato = idNeonato;
     }
 }

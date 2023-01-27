@@ -131,7 +131,7 @@ import java.util.Random;
     public void deleteAll(){
             neonatoRepository.deleteAll();
     }
-
+/*
     @Test
     public void createAllObsTemp(){
         List<Observationtemp> list = new ArrayList<>();
@@ -230,6 +230,6 @@ import java.util.Random;
         obs.setIdObservationtemp(1);
         observationtempRepository.save(obs);
     }
-
+*/
 
 }

@@ -19,34 +19,43 @@ public class ObservationController {
     @Autowired
     ObservationService observationService;
 
-    @PostMapping("/Observationecg/{sensorId}")
-    public ResponseEntity<Observationecg> saveObservationecg(@PathVariable Integer sensorId){
-        return new ResponseEntity<>(observationService.addObservationecg(sensorId), HttpStatus.OK);
-    }
+    //obs temp
 
+    //ook
     //test 1.0
     @PostMapping("/Observationtemp/{neonatoId}")
     public ResponseEntity<Observationtemp> saveObservationtemp(@PathVariable Integer neonatoId){
         return new ResponseEntity<>(observationService.addObservationtemp(neonatoId,new Random().nextInt(1,50),neonatoId), HttpStatus.OK);
     }
+
+    @PostMapping("/Observationtemp/saveList/{neonatoId}")
+    public ResponseEntity<List<Observationtemp>> saveListObservationtemp(@PathVariable Integer neonatoId){
+        return new ResponseEntity<>(observationService.addListObservationtemp(neonatoId,new Random().nextInt(1,50),neonatoId), HttpStatus.OK);
+    }
+
     @GetMapping("/observationtemp/list/{sensorId}")
     public ResponseEntity<List<Observationtemp>> getAllObservationtemp(@PathVariable Integer sensorId){
         return new ResponseEntity<>(observationService.findAllObservationTempByIdSensore(sensorId),HttpStatus.OK);
     }
-
+    //ok
+    //test
     @GetMapping("/observationtemp/listByNeonato/{idNeonato}")
     public ResponseEntity<List<Observationtemp>> getAllObservationtempByIdNeonato(@PathVariable Integer idNeonato){
         return new ResponseEntity<>(observationService.findAllObservationTempByIdNeonato(idNeonato),HttpStatus.OK);
     }
+
     //test
-    @GetMapping("/observationtemp/listObs/{id}")
-    public ResponseEntity<List<Observationtemp>> getAllObsTemp(@PathVariable Integer id){
-        return new ResponseEntity<>(observationService.findAllObservationTempByIdObservation(id),HttpStatus.OK);
+    @GetMapping("/observationtemp/listObs/{idObservation}")
+    public ResponseEntity<List<Observationtemp>> getAllObsTemp(@PathVariable Integer idObservation){
+        return new ResponseEntity<>(observationService.findAllObservationTempByIdObservation(idObservation),HttpStatus.OK);
     }
 
-    @GetMapping("/observationecg/list/{sensorId}")
-    public ResponseEntity<List<Observationecg>> getAllObservationecg(@PathVariable Integer sensorId){
-        return new ResponseEntity<>(observationService.findAllObservationEcgByIdSensore(sensorId),HttpStatus.OK);
+    //elimina indipendentemente dal sensore
+    @DeleteMapping("/observationtemp/deleteAll")
+    @Transactional
+    public ResponseEntity<HttpStatus> deleteAlltemps(){
+        observationService.deleteAlltemps();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     //elimina TUTTE le obs di quel sensore, ma non TUTTA la tabella
@@ -56,17 +65,22 @@ public class ObservationController {
         observationService.deleteObservationtempByIdSensore(idSensoretemp);
     }
 
+    //OBS ECG
+
+    @PostMapping("/Observationecg/{neonatoId}")
+    public ResponseEntity<Observationecg> saveObservationecg(@PathVariable Integer neonatoId){
+        return new ResponseEntity<>(observationService.addObservationecg(neonatoId,new Random().nextInt(1,50),neonatoId), HttpStatus.OK);
+    }
+
+    @GetMapping("/observationecg/list/{neonatoId}")
+    public ResponseEntity<List<Observationecg>> getAllObservationecg(@PathVariable Integer neonatoId){
+        return new ResponseEntity<>(observationService.findAllObservationEcgByIdSensore(neonatoId),HttpStatus.OK);
+    }
+
     @DeleteMapping("/observationtecg/delete/{idSensoreecg}")
     @Transactional
     public void deleteObservationecg(@PathVariable Integer idSensoreecg){
         observationService.deleteObservationecgByIdSensore(idSensoreecg);
-    }
-    //elimina indipendentemente dal sensore
-    @DeleteMapping("/observationtemp/deleteAll")
-    @Transactional
-    public ResponseEntity<HttpStatus> deleteAlltemps(){
-        observationService.deleteAlltemps();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/observationecg/deleteAll")
@@ -76,21 +90,5 @@ public class ObservationController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /*
-    //prende i valori delle observation tra due date
-    @GetMapping("/Observationtemp/filter")
-    public ResponseEntity<List<Observationtemp>> getByFilter(@RequestBody DateDto dateDto){
-        return new ResponseEntity<>(observationService.findObservationtempByFilter(dateDto),HttpStatus.OK);
-    }*/
-
-        /*
-    //prende le obs in una certa data
-    @GetMapping("/Observationecg/{data}")
-    public ResponseEntity<Observationecg> getByData(@PathVariable Instant data){
-
-    }
-    @GetMapping("/Observationecg/filter")
-    public ResponseEntity<Observationecg> getByFilter(@RequestBody Instant arrayData){
-
-    }*/
+    //filtering
 }

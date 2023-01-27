@@ -10,7 +10,7 @@ public interface ObservationecgRepository extends JpaRepository<Observationecg, 
 
     Observationecg findTopByIdsensore(Sensoreecg sensoreecg); //restituisce il primo record
     @Query(value = "SELECT o FROM Observationecg o WHERE o.idsensore= ?1 " +
-            "AND o.id.dataRilevazione = (SELECT max(o.id.dataRilevazione) FROM Observationecg o)")
+            "AND o.data_rilevazione = (SELECT max(o.data_rilevazione) FROM Observationecg o)")
     Observationecg findLastObservationecg(Sensoreecg sensoreecg);
 
     List<Observationecg> findObservationecgByIdsensore(Integer idSensore);
