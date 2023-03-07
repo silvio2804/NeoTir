@@ -13,6 +13,7 @@ import com.example.neoproject.repository.SensoreEcgRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -73,9 +74,11 @@ public class SensoreService {
             throw new PostolettoNotFoundException(idPostoletto);
         return sensoretempRepository.findSensoreByIdpostoletto(postolettoRepository.findPostolettoById(idPostoletto));
     }
+    @Transactional
     public void deleteAllSensortemp(){
         sensoretempRepository.deleteAll();
     }
+    @Transactional
     public void deleteAllSensorecg(){
         sensoreEcgRepository.deleteAll();
     }

@@ -1,6 +1,6 @@
 package com.example.neoproject.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.ToString;
 
@@ -10,7 +10,10 @@ import java.time.Instant;
 @Data
 @Entity
 @Table(name = "observationtemp")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Observationtemp {
+
+    @JsonProperty("id")
     @EmbeddedId
     private ObservationtempId id;
 
@@ -19,6 +22,7 @@ public class Observationtemp {
     @JsonBackReference
     private Sensoretemp idsensore;
 
+    @JsonProperty("temperatura")
     @Column(name = "temperatura", nullable = false)
     private Integer temperatura;
 
@@ -28,6 +32,7 @@ public class Observationtemp {
     @JsonBackReference
     private Neonato neonato;
 
+    @JsonProperty("data_rilevazione")
     @Column(name = "data_rilevazione", nullable = false)
     private Instant data_rilevazione;
 }

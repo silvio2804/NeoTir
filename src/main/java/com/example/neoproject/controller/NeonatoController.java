@@ -19,7 +19,7 @@ public class NeonatoController {
     private NeonatoService neonatoService;
 
     @PostMapping("/neonato/add")
-    public ResponseEntity <Neonato> addNeonato(@RequestBody NeonatoPostDto neonatoPostDto){
+    public ResponseEntity <Neonato> postNeonato(@RequestBody NeonatoPostDto neonatoPostDto){
         return new ResponseEntity<>(neonatoService.addNeonato(neonatoPostDto),HttpStatus.CREATED);
     }
 

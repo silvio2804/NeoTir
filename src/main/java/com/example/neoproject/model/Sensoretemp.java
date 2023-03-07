@@ -1,7 +1,9 @@
 package com.example.neoproject.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.ToString;
 
@@ -15,6 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "sensoretemp")
 @ToString(exclude = {"idpostoletto","observationtemps"})
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Sensoretemp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +32,9 @@ public class Sensoretemp {
     @JsonBackReference
     private Postoletto idpostoletto;
 
+    /*
     @OneToMany(mappedBy = "idsensore",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Observationtemp> observationtemps = new ArrayList<>();
-
-
+*/
 }

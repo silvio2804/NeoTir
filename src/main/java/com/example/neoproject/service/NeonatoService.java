@@ -45,6 +45,7 @@ public class NeonatoService {
             throw new RepartoNotFoundException(neonatoPostDto.getNomeReparto());
         Reparto r = repartoRepository.findRepartoById(neonatoPostDto.getNomeReparto());
         p.setNomereparto(r);
+        postolettoRepository.save(p);
         n.setIdpostoletto(p);
         return neonatoRepository.save(n);
     }

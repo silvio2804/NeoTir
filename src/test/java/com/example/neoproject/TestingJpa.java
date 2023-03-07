@@ -34,38 +34,34 @@ public class TestingJpa {
 
     @Test
     @Rollback(value = false)
-    public void saveObs(){
+    public void saveObs() {
         List<Observationtemp> list = new ArrayList<>();
         long start = 0;
         long end = 0;
         long timeElapsed = 0;
 
-        for (int j = 1; j <= 10; j++){
-
+        for (int j = 1; j <= 10; j++) {
             Neonato n = neonatoRepository.findNeonatoById(j);
             Sensoretemp s = sensoreTempRepository.findSensoreById(j);
-
-            for (int i = 1; i <= 20000; i++){
+            for (int i = 1; i <= 20000; i++) {
                 Observationtemp o = new Observationtemp();
-                ObservationtempId obsId = new ObservationtempId(i,j,j);
+                ObservationtempId obsId = new ObservationtempId(i, j, j);
                 o.setId(obsId);
 
                 o.setData_rilevazione(Instant.now());
 
                 o.setNeonato(n);
-                o.setTemperatura(new Random().nextInt(36,41));
+                o.setTemperatura(new Random().nextInt(36, 41));
                 o.setIdsensore(s); //necessario settarlo
                 list.add(o);
             }
-
             start = System.currentTimeMillis();
             observationtempRepository.saveAll(list);
             end = System.currentTimeMillis();
+
             timeElapsed = end - start;
-            System.out.println("neonato: "+ j + " tempo trascorso: "+ timeElapsed);
+            System.out.println("neonato: " +j+ " tempo trascorso: " + timeElapsed);
             list.clear();
         }
     }
-
-
 }

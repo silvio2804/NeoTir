@@ -1,5 +1,6 @@
 package com.example.neoproject.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -11,10 +12,16 @@ import java.time.Instant;
 @Embeddable
 public class ObservationtempId implements Serializable {
     private static final long serialVersionUID = 2198908211493412444L;
+
+    @JsonProperty("measure")
     @Column(name = "measure", nullable = false)
     private Integer measure;
+
+    @JsonProperty("idObservationTemp")
     @Column(name = "id_observation_temp", nullable = false)
     private Integer idObservationTemp;
+
+    @JsonProperty("idNeonato")
     @Column(name = "neonato_fk")
     private Integer idNeonato;
 

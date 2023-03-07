@@ -1,5 +1,6 @@
 package com.example.neoproject.controller;
 
+import com.example.neoproject.map.dtos.observation.ObservationPostDto;
 import com.example.neoproject.model.Observationecg;
 import com.example.neoproject.model.Observationtemp;
 import com.example.neoproject.service.ObservationService;
@@ -20,28 +21,32 @@ public class ObservationController {
     ObservationService observationService;
 
     //obs temp
-
-    //ook
-    //test 1.0
-    @PostMapping("/Observationtemp/{neonatoId}")
-    public ResponseEntity<Observationtemp> saveObservationtemp(@PathVariable Integer neonatoId){
-        return new ResponseEntity<>(observationService.addObservationtemp(neonatoId,new Random().nextInt(1,50),neonatoId), HttpStatus.OK);
+    @PostMapping("/Observationtemp/saveList/{neonatoId}")
+    public ResponseEntity<List<Observationtemp>> postListObservationtemp(@RequestBody List<ObservationPostDto> observationtemps, @PathVariable Integer neonatoId){
+        return new ResponseEntity<>(observationService.addListObservationtemp(observationtemps,neonatoId),HttpStatus.OK);
     }
 
-    @PostMapping("/Observationtemp/saveList/{neonatoId}")
-    public ResponseEntity<List<Observationtemp>> saveListObservationtemp(@PathVariable Integer neonatoId){
-        return new ResponseEntity<>(observationService.addListObservationtemp(neonatoId,new Random().nextInt(1,50),neonatoId), HttpStatus.OK);
+    // ok
+    @PostMapping("/Observationtemp/save/{neonatoId}")
+    public ResponseEntity<Observationtemp> postObservationtemp(@RequestBody ObservationPostDto observationPostDto, @PathVariable Integer neonatoId){
+        return new ResponseEntity<>(observationService.saveObservationtemp(observationPostDto, neonatoId), HttpStatus.OK);
     }
 
     @GetMapping("/observationtemp/list/{sensorId}")
     public ResponseEntity<List<Observationtemp>> getAllObservationtemp(@PathVariable Integer sensorId){
         return new ResponseEntity<>(observationService.findAllObservationTempByIdSensore(sensorId),HttpStatus.OK);
     }
+
     //ok
     //test
     @GetMapping("/observationtemp/listByNeonato/{idNeonato}")
     public ResponseEntity<List<Observationtemp>> getAllObservationtempByIdNeonato(@PathVariable Integer idNeonato){
         return new ResponseEntity<>(observationService.findAllObservationTempByIdNeonato(idNeonato),HttpStatus.OK);
+    }
+
+    @GetMapping("/Observationtemp/single")
+    public ResponseEntity<Observationtemp> getObservationtemp( @RequestParam(name = "neonatoId") Integer neonatoId, @RequestParam(name = "idObservation") Integer idObervation){
+        return new ResponseEntity<>(observationService.findObservationByNeonatoAndObservation(idObervation,neonatoId),HttpStatus.OK);
     }
 
     //test
@@ -68,7 +73,7 @@ public class ObservationController {
     //OBS ECG
 
     @PostMapping("/Observationecg/{neonatoId}")
-    public ResponseEntity<Observationecg> saveObservationecg(@PathVariable Integer neonatoId){
+    public ResponseEntity<Observationecg> postObservationecg(@PathVariable Integer neonatoId){
         return new ResponseEntity<>(observationService.addObservationecg(neonatoId,new Random().nextInt(1,50),neonatoId), HttpStatus.OK);
     }
 
@@ -78,13 +83,11 @@ public class ObservationController {
     }
 
     @DeleteMapping("/observationtecg/delete/{idSensoreecg}")
-    @Transactional
     public void deleteObservationecg(@PathVariable Integer idSensoreecg){
         observationService.deleteObservationecgByIdSensore(idSensoreecg);
     }
 
     @DeleteMapping("/observationecg/deleteAll")
-    @Transactional
     public ResponseEntity<HttpStatus> deleteAllecgs(){
         observationService.deleteAllecgs();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

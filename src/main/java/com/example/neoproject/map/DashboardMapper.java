@@ -11,6 +11,8 @@ import com.example.neoproject.model.Postoletto;
 import com.example.neoproject.model.Widget;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(
         componentModel = "spring"
 )
@@ -22,6 +24,7 @@ public interface DashboardMapper {
     Postoletto postolettoDtoToPostoletto(PostolettoDto postolettoDto);
     PostolettoDto postolettoToPostolettoDto(Postoletto postoletto);
 
+    List <DashboardGetDto> dashboardsToDashboardsGetDto(List<Dashboard> dashboardList);
 
     Widget widgetPostDtoToWidget(WidgetPostDto widgetPostDto);
     Widget widgetDtoToWidget(WidgetDto widgetDto);

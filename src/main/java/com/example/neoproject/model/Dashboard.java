@@ -7,9 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -26,7 +24,20 @@ public class Dashboard {
     @JsonBackReference
     private Postoletto idpostoletto;
 
-    @OneToMany(mappedBy = "iddashboard", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "iddashboard",cascade = CascadeType.ALL,orphanRemoval = true) //orphanRemoval -> rimuove le entità quando faccio clear sulla lista di widget della dashboard (in update),
+                                                                                        // altrimenti il clear non funziona e fa append
     @JsonManagedReference
     private List<Widget> widgets = new ArrayList<>();
+
+    public void addChild(Widget widget)
+    {
+        this.widgets.add(widget);
+
+    }
+
+    public void removeChild(Widget widget)
+    {
+        this.widgets.remove(widget);
+    }
+
 }

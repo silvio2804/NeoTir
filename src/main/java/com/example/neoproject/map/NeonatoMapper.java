@@ -14,4 +14,5 @@ public interface NeonatoMapper {
     Neonato neonatoPostDtoToNeonato(NeonatoPostDto neonatoPostDto);
     NeonatoGetDto neonatoGetDtoToNeonato(Neonato neonato);
     NeonatoSlimDto neonatoToNeonatoSlimDto(Neonato neonato);
+
 }

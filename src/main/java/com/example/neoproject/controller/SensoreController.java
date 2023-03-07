@@ -53,19 +53,17 @@ public class SensoreController {
     }
 
     @PostMapping("/sensoretemp/add")
-    public ResponseEntity <Sensoretemp> addSensoreTemp(@RequestBody SensoreTempPostDto sensoreTempPostDto){
+    public ResponseEntity <Sensoretemp> postSensoreTemp(@RequestBody SensoreTempPostDto sensoreTempPostDto){
         return new ResponseEntity<>(sensoreService.addSensoreTemp(sensoreTempPostDto),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/sensoretemp/deleteSensoresTemp")
-    @Transactional
     public ResponseEntity<HttpStatus> deleteAllSensortemp(){
         sensoreService.deleteAllSensortemp();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/sensorecg/deleteSensoresEcg")
-    @Transactional
     public ResponseEntity<HttpStatus> deleteAllSensorecg(){
         sensoreService.deleteAllSensorecg();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
